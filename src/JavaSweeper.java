@@ -2,6 +2,8 @@ import javax.swing.*;
 import javax.swing.plaf.DimensionUIResource;
 import java.awt.*;
 
+import sweeper.Box;
+
 public class JavaSweeper extends JFrame {
 	private JPanel panel;
 	private final int COLS = 15;
@@ -13,14 +15,29 @@ public class JavaSweeper extends JFrame {
 	}
 	
 	private JavaSweeper() throws HeadlessException {
+		setImages();
 		initPanel();
 		initFrame();
 	}
+	
 	private void initPanel() {
-		panel = new JPanel();
+		panel = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				for (Box box : Box.values()) {
+					g.drawImage((Image) box.image,
+							box.ordinal() * IMAGE_SIZE,
+							0,
+							this);
+				}
+//				g.drawImage(getImage("bomb"),0,0,this);
+//				g.drawImage(getImage("num1"), IMAGE_SIZE, 0, this);
+			}
+		};
 		panel.setPreferredSize(
 				new DimensionUIResource(
-						COLS*IMAGE_SIZE, ROWS* IMAGE_SIZE));
+						COLS * IMAGE_SIZE, ROWS * IMAGE_SIZE));
 		add(panel);
 	}
 	
@@ -31,5 +48,17 @@ public class JavaSweeper extends JFrame {
 		setLocationRelativeTo(null); //Устанавливаем окошко по центру
 		setResizable(false);
 		setVisible(true);
+	}
+	
+	private void setImages() {
+		for (Box box : Box.values()) {
+			box.image = getImage(box.name());
+		}
+	}
+	
+	private Image getImage(String name) {
+		String filename = "img/" + name.toLowerCase() + ".png";
+		ImageIcon icon = new ImageIcon(getClass().getResource(filename));
+		return icon.getImage();
 	}
 }
