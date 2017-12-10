@@ -25,5 +25,12 @@ public class Coord {
 		return y;
 	}
 	
-	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Coord) {
+			Coord to = (Coord) o;
+			return to.getX() == x && to.getY() == y;
+		}
+		return super.equals(o);
+	}
 }
