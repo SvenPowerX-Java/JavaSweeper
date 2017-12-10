@@ -25,4 +25,15 @@ class Flag {
 	public void setFlagedToBox(Coord coord) {
 		flagMap.set(coord, Box.FLAGED);
 	}
+	
+	public void toggleFlagedToBox(Coord coord) {
+		switch (flagMap.get(coord)) {
+			case FLAGED:setClosedToBox(coord);break;
+			case CLOSED:setFlagedToBox(coord);break;
+		}
+	}
+	
+	private void setClosedToBox(Coord coord) {
+		flagMap.set(coord, Box.CLOSED);
+	}
 }
