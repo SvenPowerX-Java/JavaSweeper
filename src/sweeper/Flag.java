@@ -5,11 +5,13 @@ class Flag {
 	
 	void start() {
 		flagMap = new Matrix(Box.CLOSED);
+		
+		/* для отладки
 		for (Coord around :
 				Ranges.getCoordsAround(new Coord(4, 4))) {
-			
+
 			flagMap.set(around, Box.OPENED);
-		}
+		}*/
 	}
 	
 	Box get(Coord coord) {
@@ -18,5 +20,9 @@ class Flag {
 	
 	public void setOpenedToBox(Coord coord) {
 		flagMap.set(coord, Box.OPENED);
+	}
+	
+	public void setFlagedToBox(Coord coord) {
+		flagMap.set(coord, Box.FLAGED);
 	}
 }
