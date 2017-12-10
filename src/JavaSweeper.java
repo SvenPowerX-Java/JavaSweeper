@@ -65,7 +65,7 @@ public class JavaSweeper extends JFrame {
 					game.pressRightButton(coord);
 				if(e.getButton() == MouseEvent.BUTTON2)
 					game.start();
-				
+				label.setText(getMessage());
 				panel.repaint();
 				
 			}
@@ -75,6 +75,19 @@ public class JavaSweeper extends JFrame {
 						Ranges.getSize().getX() * IMAGE_SIZE,
 						Ranges.getSize().getY() * IMAGE_SIZE));
 		add(panel);
+	}
+	
+	private String getMessage() {
+		switch (game.getState()) {
+			case PLAYED:
+				return "Think twice!";
+			case BOMBED:
+				return "YOU LOSE! BIG BA-DA-BOOM!";
+			case WINNER:
+				return "CONGRATULATIONS!";
+				default:
+					return "";
+		}
 	}
 	
 	private void initFrame() {
