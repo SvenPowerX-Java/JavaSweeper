@@ -17,11 +17,20 @@ class Bomb {
 	Box get(Coord coord) {
 		return bombMap.get(coord);
 	}
-	
+	private void fixBombsCount() {
+		int maxBombs = Ranges.getSize().getX() * Ranges.getSize().getY() / 2;
+		if (totalBombs>maxBombs)
+			totalBombs = maxBombs;
+	}
 	private void placeBomb() {
-		Coord coord = Ranges.getRandomCoord();
-		bombMap.set(coord, Box.BOMB);
-		incNumbersAroundBomb(coord);
+		while (true) {
+			Coord coord = Ranges.getRandomCoord();
+			if (Box.BOMB == bombMap.get(coord))
+				continue;
+			bombMap.set(coord, Box.BOMB);
+			incNumbersAroundBomb(coord);
+			break;
+		}
 		
 	}
 	

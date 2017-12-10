@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.plaf.DimensionUIResource;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import sweeper.Box;
 import sweeper.Coord;
@@ -44,6 +46,18 @@ public class JavaSweeper extends JFrame {
 //				g.drawImage(getImage("num1"), IMAGE_SIZE, 0, this);
 			}
 		};
+		panel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				int x = e.getX() / IMAGE_SIZE;
+				int y = e.getY() / IMAGE_SIZE;
+				Coord coord = new Coord(x, y);
+				if(e.getButton() == MouseEvent.BUTTON1)
+					game.pressLeftButton(coord);
+				panel.repaint();
+				
+			}
+		});
 		panel.setPreferredSize(
 				new DimensionUIResource(
 						Ranges.getSize().getX() * IMAGE_SIZE,
